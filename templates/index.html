@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barcelona Energy Expense Prediction</title>
+  <link rel="stylesheet" href="/static/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Barcelona Energy Expense Prediction by Neighborhood</h1>
+    <form id="predictionForm">
+      <label for="hood_name">Please choose your neighborhood:</label>
+      <select id="hood_name" name="hood_name" required>
+        <option value="" disabled selected>Select a neighborhood</option>
+        <!-- List of Neighborhoods -->
+        <option value="el Raval">el Raval</option>
+        <option value="el Barri Gòtic">el Barri Gòtic</option>
+        <option value="la Barceloneta">la Barceloneta</option>
+        <option value="Sant Pere, Santa Caterina i la Ribera">Sant Pere, Santa Caterina i la Ribera</option>
+        <option value="el Fort Pienc">el Fort Pienc</option>
+        <option value="la Sagrada Família">la Sagrada Família</option>
+        <option value="la Dreta de l'Eixample">la Dreta de l'Eixample</option>
+        <option value="l'Antiga Esquerra de l'Eixample">l'Antiga Esquerra de l'Eixample</option>
+        <option value="la Nova Esquerra de l'Eixample">la Nova Esquerra de l'Eixample</option>
+        <option value="Sant Antoni">Sant Antoni</option>
+        <option value="el Poble Sec">el Poble Sec</option>
+        <option value="la Marina del Prat Vermell">la Marina del Prat Vermell</option>
+        <option value="la Marina de Port">la Marina de Port</option>
+        <option value="la Font de la Guatlla">la Font de la Guatlla</option>
+        <option value="Hostafrancs">Hostafrancs</option>
+        <option value="la Bordeta">la Bordeta</option>
+        <option value="Sants-Badal">Sants-Badal</option>
+        <option value="Sants">Sants</option>
+        <option value="les Corts">les Corts</option>
+        <option value="la Maternitat i Sant Ramon">la Maternitat i Sant Ramon</option>
+        <option value="Pedralbes">Pedralbes</option>
+        <option value="Vallvidrera, el Tibidabo i les Planes">Vallvidrera, el Tibidabo i les Planes</option>
+        <option value="Sarrià">Sarrià</option>
+        <option value="les Tres Torres">les Tres Torres</option>
+        <option value="Sant Gervasi - la Bonanova">Sant Gervasi - la Bonanova</option>
+        <option value="Sant Gervasi - Galvany">Sant Gervasi - Galvany</option>
+        <option value="el Putxet i el Farró">el Putxet i el Farró</option>
+        <option value="Vallcarca i els Penitents">Vallcarca i els Penitents</option>
+        <option value="el Coll">el Coll</option>
+        <option value="la Salut">la Salut</option>
+        <option value="la Vila de Gràcia">la Vila de Gràcia</option>
+        <option value="Vila de Gràcia">Vila de Gràcia</option>
+        <option value="el Camp d'en Grassot i Gràcia Nova">el Camp d'en Grassot i Gràcia Nova</option>
+        <option value="el Baix Guinardó">el Baix Guinardó</option>
+        <option value="Can Baró">Can Baró</option>
+        <option value="el Guinardó">el Guinardó</option>
+        <option value="la Font d'en Fargues">la Font d'en Fargues</option>
+        <option value="el Carmel">el Carmel</option>
+        <option value="la Teixonera">la Teixonera</option>
+        <option value="Sant Genís dels Agudells">Sant Genís dels Agudells</option>
+        <option value="Montbau">Montbau</option>
+        <option value="la Vall d'Hebron">la Vall d'Hebron</option>
+        <option value="la Clota">la Clota</option>
+        <option value="Horta">Horta</option>
+        <option value="Vilapicina i la Torre Llobeta">Vilapicina i la Torre Llobeta</option>
+        <option value="Porta">Porta</option>
+        <option value="el Turó de la Peira">el Turó de la Peira</option>
+        <option value="Can Peguera">Can Peguera</option>
+        <option value="la Guineueta">la Guineueta</option>
+        <option value="Canyelles">Canyelles</option>
+        <option value="les Roquetes">les Roquetes</option>
+        <option value="Verdun">Verdun</option>
+        <option value="la Prosperitat">la Prosperitat</option>
+        <option value="la Trinitat Nova">la Trinitat Nova</option>
+        <option value="Torre Baró">Torre Baró</option>
+        <option value="Ciutat Meridiana">Ciutat Meridiana</option>
+        <option value="Vallbona">Vallbona</option>
+        <option value="la Trinitat Vella">la Trinitat Vella</option>
+        <option value="Baró de Viver">Baró de Viver</option>
+        <option value="el Bon Pastor">el Bon Pastor</option>
+        <option value="Sant Andreu">Sant Andreu</option>
+        <option value="la Sagrera">la Sagrera</option>
+        <option value="el Congrés i els Indians">el Congrés i els Indians</option>
+        <option value="Navas">Navas</option>
+        <option value="el Camp de l'Arpa del Clot">el Camp de l'Arpa del Clot</option>
+        <option value="el Clot">el Clot</option>
+        <option value="el Parc i la Llacuna del Poblenou">el Parc i la Llacuna del Poblenou</option>
+        <option value="la Vila Olímpica del Poblenou">la Vila Olímpica del Poblenou</option>
+        <option value="el Poblenou">el Poblenou</option>
+        <option value="Diagonal Mar i el Front Marítim del Poblenou">Diagonal Mar i el Front Marítim del Poblenou</option>
+        <option value="el Besòs i el Maresme">el Besòs i el Maresme</option>
+        <option value="Provençals del Poblenou">Provençals del Poblenou</option>
+        <option value="Sant Martí de Provençals">Sant Martí de Provençals</option>
+        <option value="la Verneda i la Pau">la Verneda i la Pau</option>
+        <!-- Add more neighborhoods as needed -->
+      </select>
+
+      <label for="start_year">Start Year:</label>
+      <input type="number" id="start_year" name="start_year" min="2024" max="2100" required>
+
+      <label for="start_month">Start Month:</label>
+      <input type="number" id="start_month" name="start_month" min="1" max="12" required>
+
+      <label for="end_year">End Year:</label>
+      <input type="number" id="end_year" name="end_year" min="2024" max="2100" required>
+
+      <label for="end_month">End Month:</label>
+      <input type="number" id="end_month" name="end_month" min="1" max="12" required>
+
+      <!-- New fields for temperature and population variation -->
+      <label for="temp_variation">Temperature variation (%):</label>
+      <input type="number" id="temp_variation" name="temp_variation" step="0.1" placeholder="Enter % (e.g., 0.5 or -0.5)" required>
+
+      <label for="pop_variation">Population variation (%):</label>
+      <input type="number" id="pop_variation" name="pop_variation" step="0.1" placeholder="Enter % (e.g., 3 or -3)" required>
+
+      <button type="submit">Submit</button>
+    </form>
+    
+    <p id="errorMessage" style="color: red; font-weight: bold; margin-top: 15px;"></p>
+
+    <div id="results" style="margin-top: 20px;">
+      <h2 class="hidden" id="kpiTitle">KPI: Total Energy Amount Predicted in kWh</h2>
+      <p id="totalEnergyKPI" style="font-size: 1.5em; font-weight: bold;" class="hidden">0</p>
+
+      <h2 class="hidden" id="barChartTitle">Bar Chart: Total Energy by Daytime in kWh</h2>
+      <canvas id="barChart" width="400" height="200" class="hidden"></canvas>
+
+      <h2 class="hidden" id="lineChartTitle">Line Chart: Average Energy by Month in kWh</h2>
+      <canvas id="lineChart" width="400" height="200" class="hidden"></canvas>
+
+      <h2 class="hidden" id="tableTitle">Prediction Results</h2>
+      <table border="1" id="resultsTable" class="hidden">
+        <thead>
+          <tr>
+            <th>Daytime</th>
+            <th>Year</th>
+            <th>Month</th>
+            <th>Predicted Energy Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Rows will be dynamically added here -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('predictionForm');
+    const errorMessage = document.getElementById('errorMessage');
+    const totalEnergyKPI = document.getElementById('totalEnergyKPI');
+    const barChartCanvas = document.getElementById('barChart');
+    const lineChartCanvas = document.getElementById('lineChart');
+    const barChartTitle = document.getElementById('barChartTitle');
+    const lineChartTitle = document.getElementById('lineChartTitle');
+    const kpiTitle = document.getElementById('kpiTitle');
+    const tableTitle = document.getElementById('tableTitle');
+    const resultsTable = document.getElementById('resultsTable').querySelector('tbody');
+    let barChart, lineChart;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Hide results before making the request
+      kpiTitle.classList.add('hidden');
+      totalEnergyKPI.classList.add('hidden');
+      barChartTitle.classList.add('hidden');
+      barChartCanvas.classList.add('hidden');
+      lineChartTitle.classList.add('hidden');
+      lineChartCanvas.classList.add('hidden');
+      tableTitle.classList.add('hidden');
+      resultsTable.innerHTML = '';
+
+      // Collect form data
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+
+      if (!data.hood_name) {
+        errorMessage.textContent = 'Please select a neighborhood.';
+        return;
+      }
+
+      try {
+        const response = await fetch('/predict', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+
+        if (!response.ok) {
+          const error = await response.json();
+          errorMessage.textContent = error.error || 'An error occurred.';
+          return;
+        }
+
+        const result = await response.json();
+        errorMessage.textContent = '';
+
+        // Update and show results
+        totalEnergyKPI.textContent = result.aggregated_results.reduce((sum, row) => sum + row.total_energy_amount, 0).toFixed(2);
+        kpiTitle.classList.remove('hidden');
+        totalEnergyKPI.classList.remove('hidden');
+        barChartTitle.classList.remove('hidden');
+        barChartCanvas.classList.remove('hidden');
+        lineChartTitle.classList.remove('hidden');
+        lineChartCanvas.classList.remove('hidden');
+        tableTitle.classList.remove('hidden');
+
+        // Update Bar Chart
+        if (barChart) barChart.destroy();
+        const energyByDaytime = {};
+        result.details.forEach(row => {
+          energyByDaytime[row.daytime] = (energyByDaytime[row.daytime] || 0) + row.energy_amount;
+        });
+        barChart = new Chart(barChartCanvas.getContext('2d'), {
+          type: 'bar',
+          data: {
+            labels: Object.keys(energyByDaytime),
+            datasets: [{ label: 'Energy', data: Object.values(energyByDaytime), backgroundColor: 'rgba(75, 192, 192, 0.6)', borderColor: 'rgba(75, 192, 192, 1)', borderWidth: 1 }],
+          },
+        });
+
+        // Update Line Chart
+        if (lineChart) lineChart.destroy();
+        lineChart = new Chart(lineChartCanvas.getContext('2d'), {
+          type: 'line',
+          data: {
+            labels: result.aggregated_results.map(row => `${row.year}-${row.month}`),
+            datasets: [{ label: 'Avg Energy', data: result.aggregated_results.map(row => row.avg_energy_amount), borderColor: 'rgba(255, 99, 132, 1)', tension: 0.1 }],
+          },
+        });
+
+        // Update Table
+        resultsTable.innerHTML = ''; // Clear previous table rows
+        result.details.forEach(row => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${row.daytime}</td>
+            <td>${row.year}</td>
+            <td>${row.month}</td>
+            <td>${row.energy_amount.toFixed(2)}</td>
+          `;
+          resultsTable.appendChild(tr);
+        });
+
+// Show the table and title
+tableTitle.classList.remove('hidden');
+document.getElementById('resultsTable').classList.remove('hidden');
+        
+
+
+        // Update Table
+        resultsTable.innerHTML = ''; // Clear previous table rows
+        result.details.forEach(row => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${row.daytime}</td>
+            <td>${row.year}</td>
+            <td>${row.month}</td>
+            <td>${row.energy_amount.toFixed(2)}</td>
+          `;
+          resultsTable.appendChild(tr);
+        });
+
+        // Show the table and title
+        tableTitle.classList.remove('hidden');
+        document.getElementById('resultsTable').classList.remove('hidden');
+
+      } catch (err) {
+        errorMessage.textContent = 'An unexpected error occurred. Please try again.';
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>
+
+
+
