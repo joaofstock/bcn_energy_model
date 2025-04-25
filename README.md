@@ -1,5 +1,6 @@
 # bcn_energy_model
 Energy model predictor of Barcelona Neighborhoods
+
 This repository contais: 
 app.py - the flask to run the model and load the prediction in the html page
 templates/index.html - the html code to load the page
